@@ -1,0 +1,39 @@
+{
+  "name": "stellar-wallet-sdk",
+  "version": "0.0.6",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@noble/hashes": "^2.0.1",
+    "@scure/bip39": "^2.0.1",
+    "@stellar/stellar-sdk": "^12.0.0",
+    "buffer": "^6.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorobanhooks/stellar-wallet-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sorobanhooks/stellar-wallet-sdk/issues"
+  },
+  "homepage": "https://github.com/sorobanhooks/stellar-wallet-sdk#readme"
+}

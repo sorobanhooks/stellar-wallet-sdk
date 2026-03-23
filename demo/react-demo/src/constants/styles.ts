@@ -1,0 +1,43 @@
+export const sharedStyles = {
+  container: {
+    width: "100%",
+    maxWidth: 600,
+    padding: 24,
+    background: "#161b22",
+    borderRadius: 12,
+    border: "1px solid #30363d",
+  },
+  input: {
+    width: "100%",
+    padding: "10px 14px",
+    marginBottom: 12,
+    background: "#0d1117",
+    border: "1px solid #30363d",
+    borderRadius: 8,
+    color: "#e6edf3",
+    fontSize: 14,
+  },
+  button: (primary?: boolean) =>
+    ({
+      padding: "10px 16px",
+      background: primary ? "#238636" : "#21262d",
+      border: primary ? "none" : "1px solid #30363d",
+      borderRadius: 8,
+      color: "#fff",
+      fontWeight: 600,
+      cursor: "pointer",
+    }) as const,
+  error: { color: "#f85149", fontSize: 13, marginTop: 12 },
+  success: { color: "#7ee787", fontSize: 13, marginTop: 12 },
+  select: {
+    width: "100%",
+    padding: "10px 14px",
+    marginBottom: 12,
+    background: "#0d1117",
+    border: "1px solid #30363d",
+    borderRadius: 8,
+    color: "#e6edf3",
+    fontSize: 14,
+    cursor: "pointer",
+  },
+};

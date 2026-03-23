@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  min-height: 600px;
+  background: #161b22;
+}
+
+body {
+  font-family: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+  color: #e6edf3;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
