@@ -25,6 +25,14 @@ Minimal, non-custodial Stellar wallet SDK with encrypted local key storage and s
 npm install stellar-wallet-sdk
 ```
 
+## Getting an API Key
+
+To use the SDK's full features (like token prices and Soroban metadata), you need an API key from [Soroban Hooks](https://www.sorobanhooks.xyz/):
+
+1. **Sign up** at [sorobanhooks.xyz](https://www.sorobanhooks.xyz/).
+2. **Open Dashboard** and navigate to [Account settings](https://www.sorobanhooks.xyz/settings) in the sidebar.
+3. **Get API Key** from the **Account Details** section. You can copy the existing key or generate a new one.
+
 ## Usage
 
 ```ts
@@ -32,7 +40,7 @@ import { StellarWallet } from "stellar-wallet-sdk";
 
 const wallet = new StellarWallet({
   network: "testnet",
-  apiKey: "your-api-key"
+  apiKey: "your-api-key" // Required for prices and Soroban RPC
 });
 
 // Create new wallet (returns mnemonic - show once!)
