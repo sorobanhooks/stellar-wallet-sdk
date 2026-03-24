@@ -1,22 +1,18 @@
-const INDEXER_URL =
-  (typeof import.meta.env !== "undefined" && import.meta.env?.VITE_INDEXER_URL) || "";
+export const API_KEY =
+  (typeof import.meta.env !== "undefined" && import.meta.env?.VITE_API_KEY) || "";
 
 export const NETWORK_STORAGE_KEY = "stellar_network";
 
 export const NETWORK_CONFIGS = {
   testnet: {
-    rpcUrl: "https://horizon-testnet.stellar.org",
+    network: "testnet" as const,
+    apiKey: API_KEY,
     networkPassphrase: "Test SDF Network ; September 2015",
-    friendbotUrl: "https://friendbot.stellar.org",
-    indexerUrl: INDEXER_URL,
-    sorobanRpcUrl: "https://soroban-testnet.stellar.org",
   },
   mainnet: {
-    rpcUrl: "https://horizon.stellar.org",
+    network: "mainnet" as const,
+    apiKey: API_KEY,
     networkPassphrase: "Public Global Stellar Network ; September 2015",
-    friendbotUrl: undefined,
-    indexerUrl: INDEXER_URL,
-    sorobanRpcUrl: "https://mainnet.sorobanrpc.com",
   },
 } as const;
 
@@ -29,4 +25,3 @@ export function getPersistedNetwork(): Network {
   return "testnet";
 }
 
-export { INDEXER_URL };
