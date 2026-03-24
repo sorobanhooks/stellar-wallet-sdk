@@ -1,7 +1,7 @@
 import { TokenCard } from "../components/TokenCard";
 import { sharedStyles } from "../constants/styles";
 import { BASE_FEE_XLM } from "../constants/config";
-import { INDEXER_URL } from "../constants/network";
+import { API_KEY } from "../constants/network";
 import type { AccountBalance, SwapQuote } from "stellar-wallet-sdk";
 
 interface SwapPageProps {
@@ -118,7 +118,7 @@ export function SwapPage({
               {swapAmount || "0"} {getAssetCode(fromAsset)}
             </div>
             <div style={{ fontSize: 13, color: "#8b949e", display: "flex", alignItems: "center", gap: 8 }}>
-              {INDEXER_URL && fromBal ? `$${usdFrom.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })}` : "$0.00"}
+              {API_KEY && fromBal ? `$${usdFrom.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 6 })}` : "$0.00"}
             </div>
             <input
               type="text"

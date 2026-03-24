@@ -1,5 +1,5 @@
 import { sharedStyles } from "../constants/styles";
-import { INDEXER_URL } from "../constants/network";
+import { API_KEY } from "../constants/network";
 import { formatAsset, getTokenId } from "../utils/asset";
 import { isContractId } from "stellar-wallet-sdk";
 import type { AccountBalance, TokenPriceData } from "stellar-wallet-sdk";
@@ -136,7 +136,7 @@ export function AccountDetailPage({
             <tr style={{ borderBottom: "1px solid #30363d" }}>
               <th style={{ textAlign: "left", padding: "8px 0" }}>Asset</th>
               <th style={{ textAlign: "right", padding: "8px 0" }}>Balance</th>
-              {INDEXER_URL && (
+              {API_KEY && (
                 <>
                   <th style={{ textAlign: "right", padding: "8px 0" }}>Price (USD)</th>
                   <th style={{ textAlign: "right", padding: "8px 0" }}>24h %</th>
@@ -165,7 +165,7 @@ export function AccountDetailPage({
                     {formatAsset(b)}
                   </td>
                   <td style={{ textAlign: "right", padding: "8px 0" }}>{b.balance}</td>
-                  {INDEXER_URL && (
+                  {API_KEY && (
                     <>
                       <td style={{ textAlign: "right", padding: "8px 0" }}>
                         {price?.currentPrice != null
