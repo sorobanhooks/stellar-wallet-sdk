@@ -42,6 +42,8 @@ import {
 } from "../network/soroban-collectibles";
 import {
   InvalidMnemonicError,
+  ApiKeyRequiredError,
+  NetworkRequiredError,
   AccountAlreadyImportedError,
   SecretKeyRequiredError,
   InvalidSecretKeyError,
@@ -56,6 +58,8 @@ import {
   SwapPathNotFoundError,
 } from "../errors";
 
+import type { NetworkType } from "../types";
+
 export interface WalletConfig {
   rpcUrl: string;
   networkPassphrase: string;
@@ -64,6 +68,11 @@ export interface WalletConfig {
   indexerUrl?: string;
   /** Soroban RPC URL (e.g. https://soroban-testnet.stellar.org). Required for addSorobanToken and addCollectible. */
   sorobanRpcUrl?: string;
+}
+
+export interface WalletInitConfig {
+  network: NetworkType;
+  apiKey: string;
 }
 
 export interface SearchAssetResult {
@@ -131,7 +140,29 @@ export class StellarWallet {
   private networkPassphrase: string;
   private config: WalletConfig;
 
-  constructor(config: WalletConfig) {
+  private static buildWalletConfig({ network, apiKey }: WalletInitConfig): WalletConfig {
+    if (!apiKey?.trim()) {
+      throw new ApiKeyRequiredError();
+    }
+    if (!network) {
+      throw new NetworkRequiredError();
+    }
+
+    return {
+      rpcUrl: `https://api.sorobanhooks.xyz/v1/api/${network}/${apiKey}`,
+      networkPassphrase:
+        network === "testnet"
+          ? "Test SDF Network ; September 2015"
+          : "Public Global Stellar Network ; September 2015",
+      friendbotUrl:
+        network === "testnet" ? "https://friendbot.stellar.org" : undefined,
+      indexerUrl: `https://api.sorobanhooks.xyz/v1/api/indexer/${apiKey}`,
+      sorobanRpcUrl: `https://api.sorobanhooks.xyz/v1/api/${network}/${apiKey}/rpc`,
+    };
+  }
+
+  constructor(initConfig: WalletInitConfig) {
+    const config = StellarWallet.buildWalletConfig(initConfig);
     this.config = config;
     this.horizon = new HorizonAdapter({
       rpcUrl: config.rpcUrl,
@@ -141,14 +172,11 @@ export class StellarWallet {
     this.networkPassphrase = config.networkPassphrase;
   }
 
-  setNetworkConfig(config: WalletConfig): void {
-    this.config = { ...this.config, ...config };
-    this.horizon = new HorizonAdapter({
-      rpcUrl: this.config.rpcUrl,
-      networkPassphrase: this.config.networkPassphrase,
-      friendbotUrl: this.config.friendbotUrl,
-    });
-    this.networkPassphrase = this.config.networkPassphrase;
+  setNetworkConfig(initConfig: WalletInitConfig): void {
+    const config = StellarWallet.buildWalletConfig(initConfig);
+    this.config = config;
+    this.horizon = new HorizonAdapter(config);
+    this.networkPassphrase = config.networkPassphrase;
   }
 
   /* -------------------------

@@ -1,1 +1,1 @@
-export type NetworkType = "PUBLIC" | "TESTNET";
+export type NetworkType = "mainnet" | "testnet";

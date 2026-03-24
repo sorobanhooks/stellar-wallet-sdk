@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import type { StellarWallet } from "stellar-wallet-sdk";
 import type { AccountBalance, TokenPriceData } from "stellar-wallet-sdk";
 import { isAccountNotFoundError, getDisplayMessage } from "stellar-wallet-sdk";
-import { INDEXER_URL } from "../constants/network";
+import { API_KEY } from "../constants/network";
 import { getStoredSorobanTokens } from "../utils/soroban-tokens-storage";
 import type { Network } from "../constants/network";
 
@@ -39,7 +39,7 @@ export function useBalances(
       const merged = [...b, ...newSoroban];
       setBalances(merged);
       setAccountNotFound(false);
-      if (INDEXER_URL && merged.length > 0) {
+      if (API_KEY && merged.length > 0) {
         try {
           const prices = await wallet.getTokenPrices(merged);
           setTokenPrices(prices);
@@ -70,7 +70,7 @@ export function useBalances(
   }, [selectedAccount, loadBalances]);
 
   useEffect(() => {
-    if (selectedAccount && INDEXER_URL && balances.length > 0) {
+    if (selectedAccount && API_KEY && balances.length > 0) {
       const interval = setInterval(async () => {
         try {
           const prices = await wallet.getTokenPrices(balances);

@@ -191,6 +191,20 @@ export class SwapPathNotFoundError extends SdkError {
   }
 }
 
+export class ApiKeyRequiredError extends SdkError {
+  readonly code = "API_KEY_REQUIRED";
+  constructor() {
+    super("API key is required. Get your API key from https://sorobanhooks.xyz");
+  }
+}
+
+export class NetworkRequiredError extends SdkError {
+  readonly code = "NETWORK_REQUIRED";
+  constructor() {
+    super("Network is required. Use 'TESTNET' or 'PUBLIC'.");
+  }
+}
+
 /** Horizon transaction submission failure with optional result codes */
 export class TransactionFailedError extends SdkError {
   readonly code = "TRANSACTION_FAILED";

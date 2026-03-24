@@ -31,11 +31,8 @@ npm install stellar-wallet-sdk
 import { StellarWallet } from "stellar-wallet-sdk";
 
 const wallet = new StellarWallet({
-  rpcUrl: "https://api.sorobanhooks.xyz/v1/api/testnet/:apiKey",
-  networkPassphrase: "Test SDF Network ; September 2015",
-  friendbotUrl: "https://friendbot.stellar.org",     // optional, for testnet funding
-  indexerUrl: "https://api.sorobanhooks.xyz/v1/api/indexer/:apiKey",      // optional, for token price fetching
-  sorobanRpcUrl: "https://api.sorobanhooks.xyz/v1/api/testnet/:apiKey/rpc"  // optional, for addSorobanToken, addCollectible, searchAssets by contract ID
+  network: "testnet",
+  apiKey: "your-api-key"
 });
 
 // Create new wallet (returns mnemonic - show once!)
@@ -71,7 +68,7 @@ console.log(wallet.getAddress());
 const balances = await wallet.getAccountBalances(publicKey);
 const balancesWithMeta = await wallet.getAccountBalancesWithMetadata(publicKey);
 
-// Get token prices (requires indexerUrl in config)
+// Get token prices (available when apiKey is configured)
 const tokenPrices = await wallet.getTokenPrices(balancesWithMeta);
 // Returns Record<tokenId, { currentPrice: number; percentagePriceChange24h: number | null } | null>
 
@@ -116,10 +113,10 @@ const pathXdr = await wallet.buildPathPaymentTransaction({
   path: [],
 });
 
-// Add Soroban token (requires sorobanRpcUrl)
+// Add Soroban token
 const metadata = await wallet.addSorobanToken(contractId);
 
-// Add collectible / NFT (requires sorobanRpcUrl)
+// Add collectible / NFT
 const nftMetadata = await wallet.addCollectible(contractId, tokenId);
 
 // Get transaction history
@@ -156,8 +153,8 @@ const { quote, signedXdr, hash } = await wallet.swap({
 
 // Change network config
 wallet.setNetworkConfig({
-  rpcUrl: "",
-  networkPassphrase: "Public Global Stellar Network ; September 2015"
+  network: "mainnet",
+  apiKey: "your-api-key"
 });
 
 // Logout
@@ -185,7 +182,7 @@ wallet.logout();
 | `signAuthEntry(authEntryXdr)` | Sign Soroban auth entry (CAP-40). Returns base64 signature. |
 | `getAccountBalances(publicKey)` | Get balances for an account. |
 | `getAccountBalancesWithMetadata(publicKey)` | Get balances with asset metadata (icon, name, decimals). |
-| `getTokenPrices(balances)` | Fetch USD prices for assets. Returns `{}` if `indexerUrl` not configured. |
+| `getTokenPrices(balances)` | Fetch USD prices for assets. Returns `{}` if the wallet is not configured with an indexer endpoint. |
 | `getSwapQuote(params)` | Get swap quote (path and amounts). Returns `SwapQuote` or `null`. |
 | `buildSwapTransaction(params)` | Build unsigned swap XDR. Fetches quote, applies slippage. Supports `sourceAccount`, `destination`, `slippagePercent`, `memo`, etc. |
 | `swap(params)` | Full swap: quote → build → sign → optionally submit. Returns `{ quote, signedXdr, hash? }`. |
@@ -194,27 +191,24 @@ wallet.logout();
 | `createTrustline(assetCode, assetIssuer, limit?)` | Build, sign, and submit changeTrust. |
 | `buildPaymentTransaction(params)` | Build unsigned payment XDR. |
 | `buildPathPaymentTransaction(params)` | Build unsigned path payment XDR. |
-| `addSorobanToken(contractId)` | Fetch Soroban token metadata. Requires `sorobanRpcUrl`. |
-| `addCollectible(contractId, tokenId)` | Fetch collectible/NFT metadata. Requires `sorobanRpcUrl`. |
+| `addSorobanToken(contractId)` | Fetch Soroban token metadata using the derived Soroban RPC endpoint. |
+| `addCollectible(contractId, tokenId)` | Fetch collectible/NFT metadata using the derived Soroban RPC endpoint. |
 | `getAccountTransactions(publicKey, options?)` | Get transaction history. Supports `limit`, `cursor`, `order`. |
 | `fundAccount(publicKey)` | Fund account via Friendbot (testnet). |
 | `createSession(durationMs)` | Create time-limited session key. |
 | `signWithSession(xdr)` | Sign using session key. |
-| `setNetworkConfig(config)` | Update RPC URL and network passphrase. |
+| `setNetworkConfig(config)` | Switch network and API key, then rebuild all SDK endpoints. |
 | `logout()` | Clear in-memory state. |
 | `static hasStoredWallet()` | Check if a wallet exists in storage. |
 
 **Exported helpers:** `isContractId(str)` – returns true if string is a valid Stellar contract ID (C-prefixed strkey).
 
-### WalletConfig
+### WalletInitConfig
 
 ```ts
 {
-  rpcUrl: string;
-  networkPassphrase: string;
-  friendbotUrl?: string;   // optional, for testnet funding
-  indexerUrl?: string;     // optional, base URL for token-prices API (e.g. https://api.example.com/api/v1)
-  sorobanRpcUrl?: string;  // optional, required for addSorobanToken, addCollectible, and searchAssets by contract ID
+  network: "mainnet" | "testnet";
+  apiKey: string;
 }
 ```
 

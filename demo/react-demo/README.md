@@ -26,7 +26,7 @@ A reference implementation demonstrating all features of the Stellar Wallet SDK 
 
 - **Balance Display** – View XLM, classic assets, and Soroban token balances
 - **Token Metadata** – Asset icons, names, and decimals from Horizon and Soroban
-- **Token Prices** – USD prices and 24h change (when `VITE_INDEXER_URL` is set)
+- **Token Prices** – USD prices and 24h change (when `VITE_API_KEY` is set)
 - **Add Classic Asset** – Search and add trustlines for Stellar Classic assets
 - **Add Soroban Token** – Add Soroban tokens by contract ID
 - **Add Collectible** – Add NFTs by contract ID and token ID
@@ -106,11 +106,7 @@ npm install
 Copy `.env.example` to `.env` and set the following:
 
 ```env
-VITE_INDEXER_URL=https://api.sorobanhooks.xyz/v1/api/indexer/:apiKey
-VITE_TESTNET_RPC_URL=https://api.sorobanhooks.xyz/v1/api/testnet/:apiKey
-VITE_MAINNET_RPC_URL=https://api.sorobanhooks.xyz/v1/api/mainnet/:apiKey
-VITE_TESTNET_SOROBAN_RPC_URL=https://api.sorobanhooks.xyz/v1/api/testnet/:apiKey/rpc
-VITE_MAINNET_SOROBAN_RPC_URL=https://api.sorobanhooks.xyz/v1/api/mainnet/:apiKey/rpc
+VITE_API_KEY=your-api-key
 ```
 
 ## Run

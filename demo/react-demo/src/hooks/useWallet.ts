@@ -9,10 +9,16 @@ import type { Network } from "../constants/network";
 
 export function useWallet() {
   const [network, setNetwork] = useState<Network>(getPersistedNetwork);
-  const [wallet] = useState(() => new StellarWallet(NETWORK_CONFIGS[network]));
+  const [wallet] = useState(() => new StellarWallet({
+    network: NETWORK_CONFIGS[network].network,
+    apiKey: NETWORK_CONFIGS[network].apiKey,
+  }));
 
   useEffect(() => {
-    wallet.setNetworkConfig(NETWORK_CONFIGS[network]);
+    wallet.setNetworkConfig({
+      network: NETWORK_CONFIGS[network].network,
+      apiKey: NETWORK_CONFIGS[network].apiKey,
+    });
     if (typeof window !== "undefined" && window.localStorage) {
       window.localStorage.setItem(NETWORK_STORAGE_KEY, network);
     }
@@ -20,3 +26,5 @@ export function useWallet() {
 
   return { wallet, network, setNetwork };
 }
+
+

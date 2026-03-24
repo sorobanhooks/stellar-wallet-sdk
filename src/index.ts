@@ -2,6 +2,7 @@ export {
   StellarWallet,
   isContractId,
   type WalletConfig,
+  type WalletInitConfig,
   type CreateResult,
   type WalletAccount,
   type SearchAssetResult,
