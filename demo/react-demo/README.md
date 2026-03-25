@@ -8,11 +8,12 @@ A reference implementation demonstrating all features of the Stellar Wallet SDK 
 
 The following video demonstrates how the SDK is used to create an entire application:
 
-![React Demo](public/react-demo.mp4)
+<video src="public/react-demo.mp4" controls width="600"></video>
 
 ## Features
 
 ### Authentication & Wallet Setup
+
 
 - **Create Wallet** – Generate a new wallet with BIP39 mnemonic (shown once for backup)
 - **Import from Mnemonic** – Restore a wallet from a 12/24-word mnemonic phrase

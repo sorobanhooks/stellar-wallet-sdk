@@ -8,7 +8,7 @@ A demonstration of building a browser extension wallet using the **Stellar Walle
 
 The following video demonstrates how the SDK is used to create an entire browser extension:
 
-![Browser Extension Demo](public/browser-extension-demo.mp4)
+<video src="public/browser-extension-demo.mp4" controls width="600"></video>
 
 ## Features
 
