@@ -8,7 +8,7 @@ A reference implementation demonstrating all features of the Stellar Wallet SDK 
 
 The following video demonstrates how the SDK is used to create an entire application:
 
-<video src="public/React%20Demo.mp4" controls width="600px"></video>
+![React Demo](public/react-demo.mp4)
 
 ## Features
 
